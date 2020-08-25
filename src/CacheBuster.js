@@ -31,17 +31,17 @@ class CacheBuster extends React.Component {
           // Service worker cache should be cleared with caches.delete()
           caches.keys().then(function (names) {
             for (let name of names) Promise.all(caches.delete(name));
-            window.location.reload(true);
           });
         }
 
         // delete browser cache and hard reload
+        window.location.reload(true);
       },
     };
   }
 
   componentDidMount() {
-    fetch("/meta.json")
+    fetch("/meta.json", { cache: "no-cache" })
       .then((response) => response.json())
       .then((meta) => {
         const latestVersion = meta.version;
