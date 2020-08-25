@@ -1,27 +1,27 @@
 import React from "react";
 import "./App.css";
-import CacheBuster from "./CacheBuster";
+import { useClearCache } from "react-clear-cache";
 function App() {
+  const { isLatestVersion, emptyCacheStorage } = useClearCache();
   return (
-    <CacheBuster>
-      {({ isLoading, isLatestVersion, refreshCacheAndReload }) => {
-        if (isLoading) return null;
-        if (!isLoading && !isLatestVersion) {
-          refreshCacheAndReload();
-        }
-
-        return (
-          <div className="App">
-            <header className="App-header">
-              <h1>Automatic cache reset - Example</h1>
-              <p>
-                Bundle version - <code>v{global.appVersion}</code>
-              </p>
-            </header>
-          </div>
-        );
-      }}
-    </CacheBuster>
+    <div className="App">
+      {!isLatestVersion && (
+        <p>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              emptyCacheStorage();
+            }}
+          >
+            Update version
+          </button>
+        </p>
+      )}
+      <header className="App-header">
+        <h1>Automatic cache reset - Example</h1>
+        <p>Bundle version</p>
+      </header>
+    </div>
   );
 }
 
