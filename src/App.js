@@ -20,7 +20,7 @@ function App() {
       )}
       <header className="App-header">
         <h1>Automatic cache reset</h1>
-        <p>Hello people</p>
+        <p>Hello OneSaz</p>
       </header>
     </div>
   );
