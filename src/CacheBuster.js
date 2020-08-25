@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import packageJson from "../package.json";
 global.appVersion = packageJson.version;
+
 // version from response - first param, local version second param
 const semverGreaterThan = (versionA, versionB) => {
   const versionsA = versionA.split(/\./g);
@@ -17,22 +18,29 @@ const semverGreaterThan = (versionA, versionB) => {
   }
   return false;
 };
-function CacheBuster(props) {
-  const [isLoading, SetIsLoading] = useState(true);
-  const [isLatestVersion, setIsLatestVersion] = useState(false);
-  const refreshCacheAndReload = () => {
-    console.log("Clearing cache and hard reloading...");
-    if (caches) {
-      // Service worker cache should be cleared with caches.delete()
-      caches.keys().then(function (names) {
-        for (let name of names) caches.delete(name);
-      });
-    }
 
-    // delete browser cache and hard reload
-    window.location.reload(true);
-  };
-  useEffect(() => {
+class CacheBuster extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      isLatestVersion: false,
+      refreshCacheAndReload: () => {
+        console.log("Clearing cache and hard reloading...");
+        if (caches) {
+          // Service worker cache should be cleared with caches.delete()
+          caches.keys().then(function (names) {
+            for (let name of names) caches.delete(name);
+          });
+        }
+
+        // delete browser cache and hard reload
+        window.location.reload(true);
+      },
+    };
+  }
+
+  componentDidMount() {
     fetch("/meta.json")
       .then((response) => response.json())
       .then((meta) => {
@@ -47,22 +55,23 @@ function CacheBuster(props) {
           console.log(
             `We have a new version - ${latestVersion}. Should force refresh`
           );
-          setIsLatestVersion(false);
-          SetIsLoading(false);
+          this.setState({ loading: false, isLatestVersion: false });
         } else {
           console.log(
             `You already have the latest version - ${latestVersion}. No cache refresh needed.`
           );
-          setIsLatestVersion(true);
-          SetIsLoading(false);
+          this.setState({ loading: false, isLatestVersion: true });
         }
       });
-  }, []);
-  return props.children({
-    isLoading,
-    isLatestVersion,
-    refreshCacheAndReload,
-  });
+  }
+  render() {
+    const { loading, isLatestVersion, refreshCacheAndReload } = this.state;
+    return this.props.children({
+      loading,
+      isLatestVersion,
+      refreshCacheAndReload,
+    });
+  }
 }
 
 export default CacheBuster;
