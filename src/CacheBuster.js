@@ -57,7 +57,7 @@ function CacheBuster({ children }) {
           SetIsLoading(false);
         }
       });
-  }, [children]);
+  });
   return (
     <React.Fragment>
       {children({
