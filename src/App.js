@@ -5,7 +5,7 @@ function App() {
   const { isLatestVersion, emptyCacheStorage } = useClearCache();
   return (
     <div className="App">
-      {!isLatestVersion && (
+      {!isLatestVersion ? (
         <p>
           <button
             onClick={(e) => {
@@ -16,11 +16,12 @@ function App() {
             Update version
           </button>
         </p>
+      ) : (
+        <header className="App-header">
+          <h1>Automatic cache reset - Example</h1>
+          <p>Bundle version</p>
+        </header>
       )}
-      <header className="App-header">
-        <h1>Automatic cache reset - Example</h1>
-        <p>Bundle version</p>
-      </header>
     </div>
   );
 }
