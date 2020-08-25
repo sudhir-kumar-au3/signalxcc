@@ -7,11 +7,7 @@ function App() {
       {({ isLoading, isLatestVersion, refreshCacheAndReload }) => {
         if (isLoading) return null;
         if (!isLoading && !isLatestVersion) {
-          return (
-            <button onClick={refreshCacheAndReload()}>
-              New Version available
-            </button>
-          );
+          refreshCacheAndReload();
         }
 
         return (
