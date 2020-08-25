@@ -5,8 +5,9 @@ function App() {
   const { isLatestVersion, emptyCacheStorage } = useClearCache();
   return (
     <div className="App">
-      {!isLatestVersion ? (
+      {!isLatestVersion && (
         <p>
+          New update available
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -16,12 +17,11 @@ function App() {
             Update version
           </button>
         </p>
-      ) : (
-        <header className="App-header">
-          <h1>Automatic cache reset</h1>
-          <p>Bundle version</p>
-        </header>
       )}
+      <header className="App-header">
+        <h1>Automatic cache reset</h1>
+        <p>Hello people</p>
+      </header>
     </div>
   );
 }
