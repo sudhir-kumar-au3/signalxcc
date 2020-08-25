@@ -31,11 +31,10 @@ class CacheBuster extends React.Component {
           // Service worker cache should be cleared with caches.delete()
           caches.keys().then(async function (names) {
             await Promise.all(names.map((name) => caches.delete(name)));
-            window.location.reload(true);
           });
         }
         // delete browser cache and hard reload
-        // window.location.reload(true);
+        window.location.reload(true);
       },
     };
   }
