@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import packageJson from "../package.json";
 global.appVersion = packageJson.version;
 // version from response - first param, local version second param
@@ -33,7 +33,7 @@ function CacheBuster(props) {
     window.location.reload(true);
   };
   useEffect(() => {
-    fetch("/public/meta.json")
+    fetch("/meta.json")
       .then((response) => response.json())
       .then((meta) => {
         const latestVersion = meta.version;
