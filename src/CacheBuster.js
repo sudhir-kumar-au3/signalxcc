@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import packageJson from "../package.json";
 global.appVersion = packageJson.version;
@@ -18,7 +17,7 @@ const semverGreaterThan = (versionA, versionB) => {
   }
   return false;
 };
-function CacheBuster(props) {
+function CacheBuster({ children }) {
   const [isLoading, SetIsLoading] = useState(true);
   const [isLatestVersion, setIsLatestVersion] = useState(false);
   const refreshCacheAndReload = () => {
@@ -58,12 +57,16 @@ function CacheBuster(props) {
           SetIsLoading(false);
         }
       });
-  }, [props]);
-  return props.children({
-    isLoading,
-    isLatestVersion,
-    refreshCacheAndReload,
-  });
+  }, [children]);
+  return (
+    <React.Fragment>
+      {children({
+        isLoading,
+        isLatestVersion,
+        refreshCacheAndReload,
+      })}
+    </React.Fragment>
+  );
 }
 
 export default CacheBuster;
