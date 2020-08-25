@@ -18,7 +18,7 @@ function App() {
         </p>
       ) : (
         <header className="App-header">
-          <h1>Automatic cache reset - Example</h1>
+          <h1>Automatic cache reset</h1>
           <p>Bundle version</p>
         </header>
       )}
