@@ -16,9 +16,10 @@ function App() {
                 <p>
                   Bundle version - <code>v{global.appVersion}</code>
                 </p>
+                <br></br>
+                <footer>hey! its me sudhir</footer>
+                <Comp></Comp>
               </header>
-              <footer>hey! its me sudhir</footer>
-              <Comp></Comp>
             </div>
           )}
         </React.Fragment>
