@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import CacheBuster from "./CacheBuster";
+import Comp from "./Comp";
 function App() {
   return (
     <CacheBuster>
@@ -16,6 +17,8 @@ function App() {
                   Bundle version - <code>v{global.appVersion}</code>
                 </p>
               </header>
+              <footer>hey! its me sudhir</footer>
+              <Comp></Comp>
             </div>
           )}
         </React.Fragment>
