@@ -1,28 +1,26 @@
 import React from "react";
 import "./App.css";
-import { useClearCache } from "react-clear-cache";
+import CacheBuster from "./CacheBuster";
 function App() {
-  const { isLatestVersion, emptyCacheStorage } = useClearCache();
   return (
-    <div className="App">
-      {!isLatestVersion && (
-        <p>
-          New update available
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              emptyCacheStorage();
-            }}
-          >
-            Update version
-          </button>
-        </p>
+    <CacheBuster>
+      {({ loading, isLatestVersion, refreshCacheAndReload }) => (
+        <React.Fragment>
+          {!loading && !isLatestVersion ? (
+            <button onClick={() => refreshCacheAndReload()}></button>
+          ) : (
+            <div className="App">
+              <header className="App-header">
+                <h1>Cache Clear - Example</h1>
+                <p>
+                  Bundle version - <code>v{global.appVersion}</code>
+                </p>
+              </header>
+            </div>
+          )}
+        </React.Fragment>
       )}
-      <header className="App-header">
-        <h1>Automatic cache reset</h1>
-        <p>Hello world</p>
-      </header>
-    </div>
+    </CacheBuster>
   );
 }
 

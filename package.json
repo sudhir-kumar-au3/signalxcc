@@ -1,6 +1,6 @@
 {
   "name": "signalxcc",
-  "version": "13.0.0",
+  "version": "13.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -12,8 +12,9 @@
     "react-scripts": "^3.4.3"
   },
   "scripts": {
-    "prebuild": "npm run generate-build-meta",
-    "generate-build-meta": "node ./node_modules/react-clear-cache/bin/cli.js",
+    "clean": "rm -rf build",
+    "prebuild": "npm run generate-build-version",
+    "generate-build-version": "node generate-build-version",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

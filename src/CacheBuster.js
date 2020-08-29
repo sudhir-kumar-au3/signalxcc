@@ -25,7 +25,10 @@ function CacheBuster({ children }) {
     if (caches) {
       // Service worker cache should be cleared with caches.delete()
       caches.keys().then(function (names) {
-        for (let name of names) caches.delete(name);
+        for (let name of names) {
+          console.log("names cache: ", name);
+          caches.delete(name);
+        }
       });
     }
 
@@ -33,7 +36,7 @@ function CacheBuster({ children }) {
     window.location.reload(true);
   };
   useEffect(() => {
-    fetch("/meta.json")
+    fetch("/meta.json", { cache: "no-cache" })
       .then((response) => response.json())
       .then((meta) => {
         const latestVersion = meta.version;
